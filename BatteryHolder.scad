@@ -1,0 +1,70 @@
+translate([0,1.3]){
+	square([20.5,2.6],center=true);
+}
+difference(){
+minkowski(){
+	translate([0,-5]){
+		square([32,8],center=true);
+	}
+	circle(r=1,center=true,$fn=100);
+}
+translate([0,-1.35-2.5]){
+	square([20,2.7],center=true);
+}
+polygon([[-9,-5],[9,-5],[12,-12],[-12,-12]]);
+translate([9.5,-2.55]){
+		square([4,0.1],center=true);
+	}
+translate([13.5,-2.5]){
+	translate([0.35,-1]){
+		circle(r=0.3,center=true,$fn=100);
+	}
+	translate([0.35,-2.5]){
+		square([0.5,3],center=true);
+	}
+	translate([-0.5,-4]){
+		intersection(){
+		difference(){
+			translate([-0.25,0]){
+				circle(r=1.35,center=true,$fn=100);
+			}
+			circle(r=0.6,center=true,$fn=100);
+		}
+		translate([0,-2]){
+			square([5,4.1],center=true);
+		}
+		}
+	}
+	translate([0.4-2,-2]){
+		square([1,4],center=true);
+	}
+}
+translate([-9.5,-2.55]){
+		square([4,0.1],center=true);
+	}
+translate([-13.5,-2.5]){
+	translate([-0.35,-1]){
+		circle(r=0.3,center=true,$fn=100);
+	}
+	translate([-0.35,-2.5]){
+		square([0.5,3],center=true);
+	}
+	translate([0.5,-4]){
+		intersection(){
+		difference(){
+			translate([0.25,0]){
+				circle(r=1.35,center=true,$fn=100);
+			}
+			circle(r=0.6,center=true,$fn=100);
+		}
+		translate([0,-2]){
+			square([5,4.1],center=true);
+		}
+		}
+	}
+	translate([-0.4+2,-2]){
+		square([1,4],center=true);
+	}
+}
+
+}

@@ -1,0 +1,12 @@
+difference(){
+minkowski(){
+square([40,20],center=true);
+circle(r=5,$fn=100,center=0);
+}
+translate([0,15]){
+square([20,5],center=true);
+}
+translate([0,-15]){
+square([20,5],center=true);
+}
+}

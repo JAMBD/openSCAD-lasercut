@@ -1,0 +1,20 @@
+difference(){
+    square([101,12],center = true);
+    translate([30.5,0]){
+        circle(r=1.6,center=true);
+    }
+    hull(){
+        translate([-30.5+1,0]){
+            circle(r=1.6,center=true);
+        }
+        translate([-30.5-1,0]){
+            circle(r=1.6,center=true);
+        }
+    }
+    translate([-101/2,12/2]){
+        square([20,12],center=true);
+    }
+    translate([101/2,12/2]){
+        square([20,12],center=true);
+    }
+}

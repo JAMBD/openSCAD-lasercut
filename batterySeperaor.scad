@@ -1,0 +1,9 @@
+difference(){
+square([7.5,8],center=true);
+translate([2.7,0]){
+square([2.60,4.50],center=true);
+}
+translate([-2.7,0]){
+square([2.60,4.50],center=true);
+}
+}

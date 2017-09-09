@@ -1,0 +1,330 @@
+use<gear.scad>
+
+difference(){
+    circle(r=8,$fn=30);
+    circle(r=2.5/2,$fn=30);
+}
+
+%difference(){
+    hull(){
+        translate([0,-8]){
+            circle(r=4,$fn=40);
+        }
+        translate([0,8]){
+            circle(r=4,$fn=40);
+        }
+    }
+    translate([0,-8]){
+        circle(r=2.1/2,$fn=40);
+    }
+    translate([0,8]){
+        circle(r=2.1/2,$fn=40);
+    }
+}
+
+%gear(3,0.5,18,2.5/2,0.2);
+%translate([0,0,-2]){
+    difference(){
+        hull(){
+            translate([15,-90]){
+                circle(5,0);
+            }
+            translate([-30,-70]){
+                circle(5,0);
+            }
+            translate([-40,100]){
+                circle(5,0);
+            }
+            translate([160,90]){
+                circle(5,0);
+            }
+        }
+        circle(r=2.5/2,$fn=20);
+        translate([14,-60]){
+            circle(r=2.1/2,$fn=20);
+        }
+        translate([-14,-60]){
+            circle(r=2.1/2,$fn=20);
+        }
+        translate([0,91]){
+            circle(r=2.1/2,$fn=20);
+        }
+        translate([80,80]){
+            circle(r=2.1/2,$fn=20);
+        }     
+        translate([0,50]){
+            square([65,14],center=true);
+        }
+    }
+}
+%translate([0,50,-2]){
+    difference(){
+        square([20,14],center=true);
+        translate([0,3.5]){
+            circle(r=2.5/2,$fn=20);
+        }
+        translate([0,-3.5]){
+            circle(r=2.5/2,$fn=20);
+        }
+    }
+}
+%translate([0,50,-3]){
+    difference(){
+        square([20,20],center=true);
+        translate([0,3.5]){
+            circle(r=2.1/2,$fn=20);
+        }
+        translate([0,-3.5]){
+            circle(r=2.1/2,$fn=20);
+        }
+    }
+}
+%translate([-14,0,1]){
+    difference(){
+        hull(){
+            translate([0,110]){
+                circle(r=4,$fn=20);
+            }
+            translate([0,-60]){
+                circle(r=6,$fn=20);
+            }
+        }
+        translate([0,7]){
+            circle(r=2.1/2,$fn=20);
+        }
+        translate([0,-7]){
+            circle(r=2.1/2,$fn=20);
+        }
+        translate([0,-60]){
+            circle(r=2.1/2,$fn=20);
+        }
+    }
+}
+
+%translate([0,91,1]){
+    difference(){
+        hull(){
+            circle(r=10,$fn=20);
+            intersection(){
+                circle(r=13,$fn=20);
+                polygon([[0,0],[50,-50],[-50,-50]]);
+            }
+        }
+        circle(r=2.5/2,$fn=30);
+        translate([0,5]){
+            circle(r=2.1/2,$fn=30);
+        }
+    }   
+}
+
+%translate([14,0,1]){
+    difference(){
+        hull(){
+            translate([0,110]){
+                circle(r=4,$fn=20);
+            }
+            translate([0,-60]){
+                circle(r=6,$fn=20);
+            }
+        }
+        translate([0,7]){
+            circle(r=2.1/2,$fn=20);
+        }
+        translate([0,-7]){
+            circle(r=2.1/2,$fn=20);
+        }
+        translate([0,-60]){
+            circle(r=2.1/2,$fn=20);
+        }
+    }
+}
+%difference(){
+    translate([-9,0]){
+        linGear(3,0.5,19,10,0.2);
+    }
+    translate([-14,24.5]){
+        circle(r=2.1/2,$fn=20);
+    }
+    hull(){
+        translate([-14,15]){
+            circle(r=2.1/2,$fn=20);
+        }
+        translate([-14,-15]){
+            circle(r=2.1/2,$fn=20);
+        }
+    }
+}
+%difference(){
+    translate([9,0]){
+        rotate([0,0,180]){
+            linGear(3,0.5,19,10,0.2);
+        }
+    }
+    translate([14,24.5]){
+        circle(r=2.1/2,$fn=20);
+    }
+    hull(){
+        translate([14,15]){
+            circle(r=2.1/2,$fn=20);
+        }
+        translate([14,-15]){
+            circle(r=2.1/2,$fn=20);
+        }
+    }
+}
+
+%translate([0,0,-1]){
+    translate([80,80]){
+        difference(){
+            //gear(3,0.5,100,2.5/2,0.2);
+            circle(r=47,$fn=100);
+            circle(r=2.5/2,$fn=20);
+            translate([30,2.2]){
+                circle(r=2.1/2,$fn=20);
+            }
+            translate([30,-2.2]){
+                circle(r=2.1/2,$fn=20);
+            }
+        }
+    }
+}
+
+%translate([110,80]){
+    difference(){
+        circle(4.9,$fn=20);
+        translate([0,2.2]){
+            circle(r=2.5/2,$fn=20);
+        }
+        translate([0,-2.2]){
+            circle(r=2.5/2,$fn=20);
+        }
+    }
+}
+%translate([0,0,1]){
+    translate([80,80]){
+        difference(){
+            circle(r=38,$fn=100);
+            circle(r=2.5/2,$fn=20);
+            translate([30,2.2]){
+                circle(r=2.1/2,$fn=20);
+            }
+            translate([30,-2.2]){
+                circle(r=2.5/2,$fn=20);
+            }
+            translate([0,30]){
+                circle(r=2.5/2,$fn=20);
+            }
+        }
+    }
+}
+
+
+%translate([0,80,2]){
+    difference(){
+        hull(){
+            translate([113,0]){
+                circle(r=10,$fn=20);
+            };
+            translate([0,11]){
+                circle(r=10,$fn=20);
+            };
+        }
+        hull(){
+            translate([113,0]){
+                circle(r=2.5/2,$fn=20);
+            };
+            translate([42,6]){
+                circle(r=2.5/2,$fn=20);
+            };
+        }
+        translate([0,11]){
+            circle(r=2.1/2,$fn=20);
+        }
+        translate([0,16]){
+            circle(r=2.1/2,$fn=20);
+        }
+    }
+}
+
+%translate([0,24.5,-1]){
+    difference(){
+        hull(){
+            translate([30,0]){
+                circle(r=6,$fn=20);
+            }
+            translate([-30,0]){
+                circle(r=6,$fn=20);
+            }
+            translate([0,55]){
+                circle(r=5,$fn=20);
+            }
+        }
+        translate([0,55]){
+            circle(r=2.1/2,$fn=20);
+        }
+        hull(){
+            translate([-30,0]){
+                circle(r=2.5/2,$fn=20);
+            }
+            translate([30,0]){
+                circle(r=2.5/2,$fn=20);
+            }
+        }
+        
+        hull(){
+            translate([0,45]){
+                circle(r=2.5/2,$fn=20);
+            }
+            translate([0,8]){
+                circle(r=2.5/2,$fn=20);
+            }
+        }
+    }
+}
+
+%translate([-35,50]){
+    difference(){
+        square([80,15],center=true);
+        translate([35,3.5]){
+            circle(r=2.5/2,$fn=20);
+        }
+        translate([35,-3.5]){
+            circle(r=2.5/2,$fn=20);
+        }
+    }
+}
+
+%translate([0,80]){
+    difference(){
+        hull(){
+            translate([113,0]){
+                circle(r=10,$fn=20);
+            };
+            translate([0,8]){
+                circle(r=10,$fn=20);
+            };
+            translate([-30,0]){
+                circle(r=10,$fn=20);
+            };
+        }
+        hull(){
+            translate([30,0]){
+                circle(r=2.5/2,$fn=20);
+            };
+            translate([-30,0]){
+                circle(r=2.5/2,$fn=20);
+            };
+        }
+        hull(){
+            translate([113,0]){
+                circle(r=5,$fn=20);
+            };
+            translate([53,0]){
+                circle(r=5,$fn=20);
+            };
+        }
+        translate([0,11]){
+            circle(r=2.1/2,$fn=20);
+        }
+    }
+}

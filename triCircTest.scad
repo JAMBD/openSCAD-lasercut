@@ -1,0 +1,159 @@
+use<lasercut.scad>
+$thickness=2.72;
+$flat = false;
+$num = 3;
+$offset = 8.0;
+$rad = 12;
+module ring(r=10){
+    difference(){
+        circle(r=r,$fn=100);
+        circle(r=r-0.1,$fn=100);
+    }
+}
+module holes(){
+    for($i=[0:120:360-1]){
+        rotate([0,0,$i+60]){
+            translate([18.5,0]){
+                circle(1.3,$fn=100);
+            }
+        }
+    }
+}
+module pattern(){
+    ring(r=$rad,$fn=100);
+    intersection(){
+        circle(r=$rad,$fn=100);
+        for($i=[0:60:360-1]){
+            rotate([0,0,$i]){
+                translate([$offset,0]){
+                    rotate([0,0,120]){
+                        translate([-$offset,0]){
+                            ring(r=$rad,$fn=100);
+                        }
+                    }
+                    rotate([0,0,0]){
+                        translate([2*$offset,0]){
+                            ring(r=$rad,$fn=100);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+module case(){
+    difference(){
+        hull(){
+            for($i=[0:120:360-1]){
+                rotate([0,0,$i]){
+                    translate([$offset,0]){
+                        difference(){
+                            circle($rad+5,$fn=100);
+                        }
+                    }
+                }
+            }
+        }
+        for($i=[0:120:360-1]){
+            rotate([0,0,$i]){
+                translate([$offset,0]){
+                    difference(){
+                        circle(6,$fn=100);
+                    }
+                }
+            }
+        }
+    }
+    
+    for($i=[0:120:360-1]){
+        rotate([0,0,$i+60]){
+            translate([18.5,0]){
+                circle(4,$fn=100);
+            }
+        }
+    }
+}
+module outer(){
+    difference(){
+        hull(){
+            for($i=[0:120:360-1]){
+                rotate([0,0,$i]){
+                    translate([$offset,0]){
+                        difference(){
+                            circle($rad+5,$fn=100);
+                        }
+                    }
+                }
+            }
+        }
+        hull(){
+            for($i=[0:120:360-1]){
+                rotate([0,0,$i]){
+                    translate([$offset,0]){
+                        difference(){
+                            circle($rad,$fn=100);
+                        }
+                    }
+                }
+            }
+        }
+    }
+    for($i=[0:120:360-1]){
+        rotate([0,0,$i+60]){
+            translate([18.5,0]){
+                circle(4,$fn=100);
+            }
+        }
+    }
+}
+assembly($num,$flat){
+    #laserCutLayer(
+        trans=[0,0,0],
+        rot=[0,0,0],
+        thickness=$thickness,
+        flatten = $flat){
+        difference(){
+            offset(r=2.07,$fn=50){
+                offset(r=-2,$fn=50){
+                    outer();
+                }
+            }
+            holes();
+        }
+    }
+    
+    laserCutLayer(
+        trans=[0,0,-$thickness],
+        rot=[0,0,0],
+        thickness=$thickness,
+        flatten = $flat){
+        difference(){
+            offset(r=0.27,$fn=50){
+                offset(r=-0.2,$fn=50){
+                    case();
+                }
+            }
+            holes();
+        }
+    }
+    laserCutLayer(
+        trans=[0,0,0],
+        rot=[0,0,0],
+        thickness=$thickness,
+        flatten = $flat){
+        offset(r=2.07,$fn=50){
+            offset(r=-2,$fn=50){
+                for($i=[0:120:360-1]){
+                    rotate([0,0,$i]){
+                        translate([$offset,0]){
+                            difference(){
+                                circle($rad,$fn=100);
+                                pattern();
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

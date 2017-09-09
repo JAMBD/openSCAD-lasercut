@@ -1,0 +1,658 @@
+use<lasercut.scad>
+dnum = 0;
+dflat = false;
+$thickness=4.6;
+$SM = 3.0;
+$flat = dflat;
+$num = dnum;
+$kerf = 0.1;
+$loop=0.6;
+
+module ssquare($size){
+    square($size,true);
+    translate([$size[0]/2,$size[1]/2]){
+        circle(r=$loop,$fn=50);
+    }
+    translate([-$size[0]/2,$size[1]/2]){
+        circle(r=$loop,$fn=50);
+    }
+    translate([-$size[0]/2,-$size[1]/2]){
+        circle(r=$loop,$fn=50);
+    }
+    translate([$size[0]/2,-$size[1]/2]){
+        circle(r=$loop,$fn=50);
+    }
+}
+
+module plate(){
+    difference(){
+        square([230+$thickness,30],true);
+        railhole();
+        translate([230/2,0]){
+            fjoin(15,1);
+            rotate([0,0,90]){
+                screw();
+            }
+        }
+        translate([-230/2,0]){
+            fjoin(15,1);
+            rotate([0,0,90]){
+                screw();
+            }
+        }
+        translate([0,(30)/2-$thickness/2]){
+            rotate([0,0,90]){
+                fjoin(150,0);
+            }
+        }
+        translate([0,30/2-$thickness-10.4]){
+            square([10,6],true);
+        }
+    }
+}
+
+module splate(){
+    difference(){
+        union(){
+            square([350,50],true);
+            hull(){
+                translate([40,20]){
+                    square([50,50],true);
+                }
+                translate([60+50,10]){
+                    circle(r=10);
+                }
+            }
+        }
+        translate([270/2-$thickness/2,0]){
+            fjoin(15,0);
+        }
+        translate([-270/2+$thickness/2,0]){
+            fjoin(15,0);
+        }
+        translate([-270/2-40/2+$thickness/2,30/2-$thickness/2]){
+            rotate([0,0,90]){
+                fjoin(20,0);
+            }
+        }
+        translate([270/2+40/2-$thickness/2,30/2-$thickness/2]){
+            rotate([0,0,90]){
+                fjoin(20,0);
+            }
+        }
+        translate([-25+15+40,45-$thickness/2]){
+             screw();
+            rotate([0,0,90]){
+                fjoin(13,0);
+            }
+        }
+        translate([-25+15+40+60,-10]){
+             circle(r=1.5,$fn=20);
+        }
+        translate([-25+15+40+60,10]){
+             circle(r=1.5,$fn=20);
+        }
+    }
+}
+
+module fplate(){
+    difference(){
+        square([230+$thickness,40+$thickness],true);
+        translate([0,(40+$thickness)/2-$thickness/2]){
+            rotate([0,0,90]){
+                fjoin(150,1);
+            }
+        }
+        translate([230/2,0]){
+            fjoin(20,1);
+            rotate([0,0,90]){
+                screw();
+            }
+        }
+        translate([-230/2,0]){
+            fjoin(20,1);
+            rotate([0,0,90]){
+                screw();
+            } 
+        }
+    }
+}
+
+module railPlate(){
+    difference(){
+        square([210,80],true);
+        translate([0,40-$thickness/2]){
+            rotate([0,0,90]){
+                fjoin(150,0);
+            }
+        }
+        translate([0,-40+$thickness/2]){
+            rotate([0,0,90]){
+                fjoin(150,0);
+            }
+        }
+        translate([90,0]){
+            rotate([0,0,0]){
+                fjoin(30,0);
+            }
+        }
+        translate([-90,0]){
+            rotate([0,0,0]){
+                fjoin(30,0);
+            }
+        }
+        for($i=[-60:10:60]){
+            for($j=[-30:10:30]){
+                translate([$i,$j]){
+                    circle(r=0.3,$fn=10);
+                }
+            }
+        }
+    }
+}
+
+module railRider(){
+    difference(){
+        square([210,30],true);
+        railhole();
+        translate([0,30/2-$thickness-10.4]){
+            square([10,6],true);
+        }
+        translate([0,(30)/2-$thickness/2]){
+            rotate([0,0,90]){
+                fjoin(150,1);
+            }
+        }
+        translate([0,30/2-$thickness-10.4]){
+            square([10,6],true);
+        }
+        translate([-90,0]){
+            rotate([0,0,0]){
+                fjoin(10,0);
+            }
+        }
+        translate([90,0]){
+            rotate([0,0,0]){
+                fjoin(10,0);
+            }
+        }
+        translate([5,-3]){
+            rotate([0,0,90]){
+                fjoin(30,1,10);
+            }
+        }
+    }
+}
+
+module railSide(){
+    difference(){
+        square([80,30],true);
+        translate([0,30/2-$thickness/2]){
+            rotate([0,0,90]){
+                fjoin(30,1);
+            }
+        }
+        translate([40-$thickness/2,0]){
+            fjoin(10,1);
+        }
+        translate([-40+$thickness/2,0]){
+            fjoin(10,1);
+        }
+        translate([0,15]){
+            screw();
+        }
+        translate([40,0]){
+            rotate([0,0,90]){
+                screw();
+            }
+        }
+        translate([-40,0]){
+            rotate([0,0,90]){
+                screw();
+            }
+        }
+    }
+}
+
+module screw(){
+    ssquare([$SM,25]);
+    translate([0,8]){
+        ssquare([8,3]);
+    }
+    translate([0,-8]){
+        ssquare([8,3]);
+    }
+}
+
+module railhole(){
+        translate([50,0]){
+            circle(r=5.0/2-$kerf,$fn=100);
+        }
+        translate([-50,0]){
+            circle(r=7.92/2-$kerf,$fn=100);
+        }
+}
+
+module fjoin($len=10,$s=0,$len2=-1){
+    if($s==0){
+        ssquare([$thickness,$len-$kerf*2]);
+    }else{
+        if($len2 < 0){
+            translate([0,$len]){
+                ssquare([$thickness,$len]);
+            }
+            translate([0,-$len]){
+                ssquare([$thickness,$len]);
+            }
+        }else{
+            translate([0,$len/2+$len2/2]){
+                ssquare([$thickness,$len2]);
+            }
+            translate([0,-$len/2-$len2/2]){
+                ssquare([$thickness,$len2]);
+            }
+        }
+    }
+}
+
+module tholder(){
+    difference(){
+        hull(){
+            translate([0,60-5+$thickness/2]){
+                square([20,10],true);
+            }
+            translate([0,-10]){
+                circle(r=10,$fn=50);
+            }
+        }
+        translate([0,-10]){
+            circle(r=1.5,$fn=50);
+        }
+        translate([0,10]){
+            circle(r=1.5,$fn=50);
+        }
+        translate([0,60]){
+            rotate([0,0,90]){
+                fjoin(10,1);
+            }
+            screw();
+        }
+    }
+}
+
+assembly($num,$flat){
+
+   laserCutLayer(
+        trans=[0,115,0],
+        rot=[90,0,180],
+        thickness=$thickness,
+        flatten = $flat){
+            splate();
+    }
+    laserCutLayer(
+        trans=[0,0-115,0],
+        rot=[90,0,180],
+        thickness=$thickness,
+        flatten = $flat){
+            splate();
+    }
+    laserCutLayer(
+        trans=[-90,-115-$thickness,0],
+        rot=[90,0,180],
+        thickness=$thickness,
+        flatten = $flat){
+        tholder();
+    }
+    laserCutLayer(
+        trans=[-90,115+$thickness,0],
+        rot=[90,0,180],
+        thickness=$thickness,
+        flatten = $flat){
+        tholder();
+    }
+    laserCutLayer(
+        trans=[-90,0,60],
+        rot=[0,0,0],
+        thickness=$thickness,
+        flatten = $flat){
+        difference(){
+            union(){
+                square([20,230+$thickness*3+80],true);
+                for($i=[-135:6:135]){
+                    translate([10,$i]){
+                        square([15,3],true);
+                    }
+                }
+                translate([10,135+18]){
+                    square([15,3*9],true);
+                }
+                translate([10,-135-18]){
+                    square([15,3*9],true);
+                }
+                translate([-10,135+20]){
+                    square([15,5*5],true);
+                }
+                translate([-10,-135-20]){
+                    square([15,5*5],true);
+                }
+                for($i=[-135:10:135]){
+                    translate([-10,$i]){
+                        square([15,5],true);
+                    }
+                }
+            }
+            translate([0,230/2+$thickness*3/2-$thickness/2]){
+                rotate([0,0,90]){
+                    fjoin(10,0);
+                }
+            }
+            translate([0,-230/2-$thickness*3/2+$thickness/2]){
+                rotate([0,0,90]){
+                    fjoin(10,0);
+                }
+            }
+        }
+    }
+    laserCutLayer(
+        trans=[135-$thickness/2,0,0],
+        rot=[90,0,90],
+        thickness=$thickness,
+        flatten = $flat){
+            plate();
+    }
+    laserCutLayer(
+        trans=[-135+$thickness/2,0,0],
+        rot=[90,0,90],
+        thickness=$thickness,
+        flatten = $flat){
+            plate();
+    }
+    laserCutLayer(
+        trans=[25-15-40,230/2,45-$thickness/2],
+        rot=[0,0,0],
+        thickness=$thickness,
+        flatten = $flat){
+            difference(){
+                circle(r=8,$fn=50);
+                circle(r=1.5,$fn=30);
+                rotate([0,0,90]){
+                    fjoin(13,1);
+                }
+            }
+    }
+    laserCutLayer(
+        trans=[25-15-40,-230/2,45-$thickness/2],
+        rot=[0,0,0],
+        thickness=$thickness,
+        flatten = $flat){
+            difference(){
+                circle(r=8,$fn=50);
+                circle(r=1.5,$fn=30);
+                rotate([0,0,90]){
+                    fjoin(13,1);
+                }
+            }
+    }
+    laserCutLayer(
+        trans=[270/2+40/2-$thickness/2,0,15-$thickness/2],
+        rot=[0,0,90],
+        thickness=$thickness,
+        flatten = $flat){
+        difference(){
+            union(){
+                fplate();
+                translate([-14.2,0]){
+                    hull(){
+                        square([130,30],true);
+                        translate([55/2,-60]){
+                            circle(10,$fn=50);
+                        }
+                        translate([-55/2,-60]){
+                            circle(10,$fn=50);
+                        }
+                    }
+                }
+            }
+            translate([-14.2,0]){
+                translate([38.1/2,0]){
+                    circle(r=3/2,$fn=50);
+                }
+                translate([-38.1/2,0]){
+                    circle(r=3/2,$fn=50);
+                }
+                translate([-38.1/2,-54.2]){
+                    circle(r=3/2,$fn=50);
+                }
+                hull(){
+                    translate([-38.1/2+5,-11-5]){
+                        circle(r=6,$fn=50);
+                    }
+                    translate([-38.1/2+5,-11-5-36+10]){
+                        circle(r=6,$fn=50);
+                    }
+                    translate([-38.1/2+5+36-10,-11-5]){
+                        circle(r=6,$fn=50);
+                    }
+                    translate([-38.1/2+5+36-10,-11-5-36+10]){
+                        circle(r=6,$fn=50);
+                    }
+                }
+            }
+            translate([-80,10]){
+                circle(r=1.5,$fn=30);
+            }
+            translate([-80,-10]){
+                circle(r=1.5,$fn=30);
+            }
+            translate([30,10]){
+                circle(r=1.5,$fn=30);
+            }
+            translate([30,-10]){
+                circle(r=1.5,$fn=30);
+            }
+            translate([80,10]){
+                circle(r=1.5,$fn=30);
+            }
+            translate([80,-10]){
+                circle(r=1.5,$fn=30);
+            }
+        }
+    }
+    laserCutLayer(
+        trans=[-270/2-40/2+$thickness/2,0,15-$thickness/2],
+        rot=[0,0,-90],
+        thickness=$thickness,
+        flatten = $flat){
+            difference(){
+                fplate();
+                translate([0,0]){
+                    circle(r=1.5,$fn=30);
+                }
+                translate([-30,10]){
+                    circle(r=1.5,$fn=30);
+                }
+                translate([-30,-10]){
+                    circle(r=1.5,$fn=30);
+                }
+                translate([-80,10]){
+                    circle(r=1.5,$fn=30);
+                }
+                translate([-80,-10]){
+                    circle(r=1.5,$fn=30);
+                }
+                translate([30,10]){
+                    circle(r=1.5,$fn=30);
+                }
+                translate([30,-10]){
+                    circle(r=1.5,$fn=30);
+                }
+                translate([80,10]){
+                    circle(r=1.5,$fn=30);
+                }
+                translate([80,-10]){
+                    circle(r=1.5,$fn=30);
+                }
+            }
+    }
+    laserCutLayer(
+        trans=[40-$thickness/2,0,0],
+        rot=[90,0,90],
+        thickness=$thickness,
+        flatten = $flat){
+            railRider();
+    }
+    laserCutLayer(
+        trans=[-40+$thickness/2,0,0],
+        rot=[90,0,90],
+        thickness=$thickness,
+        flatten = $flat){
+            railRider();
+    }
+    laserCutLayer(
+        trans=[0,0,50],
+        rot=[90,0,90],
+        thickness=$thickness,
+        flatten = $flat){
+            difference(){
+                square([78.6,36.8],true);
+                translate([0,11.42/2]){
+                    circle(r=1.1,$fn=20);
+                }
+                translate([0,-11.42/2]){
+                    circle(r=1.1,$fn=20);
+                }
+                translate([32.88,11.42/2]){
+                    circle(r=1.1,$fn=20);
+                }
+                translate([32.88,-11.42/2]){
+                    circle(r=1.1,$fn=20);
+                }
+                translate([-32.88,11.42/2]){
+                    circle(r=1.1,$fn=20);
+                }
+                translate([-32.88,-11.42/2]){
+                    circle(r=1.1,$fn=20);
+                }
+                translate([-32.88+7.52-1,-11.42/2+2]){
+                    circle(r=1.5,$fn=20);
+                }
+                translate([32.88-7.5+1,-11.42/2+2]){
+                    circle(r=1.5,$fn=20);
+                }
+                translate([+7.52-1,-11.42/2+2]){
+                    circle(r=1.5,$fn=20);
+                }
+                translate([-7.5+1,-11.42/2+2]){
+                    circle(r=1.5,$fn=20);
+                }
+                translate([23/2,14/2]){
+                    circle(r=1.5,$fn=20);
+                }
+                translate([23/2,-14/2]){
+                    circle(r=1.5,$fn=20);
+                }
+                translate([-23/2,-14/2]){
+                    circle(r=1.5,$fn=20);
+                }
+                translate([-23/2,14/2]){
+                    circle(r=1.5,$fn=20);
+                }
+            }
+    }
+    laserCutLayer(
+        trans=[0,5,-3],
+        rot=[0,0,-90],
+        thickness=$thickness,
+        flatten = $flat){
+            difference(){
+                square([50,80],true);
+                translate([0,40-$thickness/2]){
+                    rotate([0,0,90]){
+                        fjoin(30,0);
+                    }
+                }
+                translate([0,-40+$thickness/2]){
+                    rotate([0,0,90]){
+                        fjoin(30,0);
+                    }
+                }
+                translate([-5, 10]){
+                    circle(r=1.5,$fn=30);
+                }
+                translate([-5, -10]){
+                    circle(r=1.5,$fn=30);
+                }
+            }
+    }
+    laserCutLayer(
+        trans=[0,5,-3+$thickness],
+        rot=[0,0,-90],
+        thickness=$thickness,
+        flatten = $flat){
+            difference(){
+                translate([-5, 10]){
+                    circle(r=10-1.9/2,$fn=100);
+                }
+                translate([-5, 10]){
+                    circle(r=1.5,$fn=30);
+                }
+            }
+    }
+    laserCutLayer(
+        trans=[0,5,-3+$thickness],
+        rot=[0,0,-90],
+        thickness=$thickness,
+        flatten = $flat){
+            difference(){
+                translate([-5, -10]){
+                    circle(r=10-1.9/2,$fn=100);
+                }
+                translate([-5, -10]){
+                    circle(r=1.5,$fn=30);
+                }
+            }
+    }
+    laserCutLayer(
+        trans=[0,5,-3+$thickness*2],
+        rot=[0,0,-90],
+        thickness=$thickness,
+        flatten = $flat){
+            difference(){
+                hull(){
+                    translate([-5, -10]){
+                        circle(r=10-1.9/2,$fn=100);
+                    }
+                    translate([-5, 10]){
+                        circle(r=10-1.9/2,$fn=100);
+                    }
+                }
+                translate([-5, 10]){
+                    circle(r=1.5,$fn=30);
+                }
+                translate([-5, -10]){
+                    circle(r=1.5,$fn=30);
+                }
+            }
+    }
+    laserCutLayer(
+        trans=[0,-90,0],
+        rot=[90,0,0],
+        thickness=$thickness,
+        flatten = $flat){
+            railSide();
+    }
+    laserCutLayer(
+        trans=[0,90,0],
+        rot=[90,0,0],
+        thickness=$thickness,
+        flatten = $flat){
+            railSide();
+    }
+    laserCutLayer(
+        trans=[0,0,15-$thickness/2],
+        rot=[0,0,-90],
+        thickness=$thickness,
+        flatten = $flat){
+            railPlate();
+    }
+}

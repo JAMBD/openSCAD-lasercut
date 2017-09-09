@@ -1,0 +1,33 @@
+*difference(){
+    union(){
+        square([60,80],true);
+        square([75,80-6],true);
+    }
+    *translate([30,40-32.8]){
+        square([18,18],true);
+    }
+    translate([20,40]){
+        square([1.2,18],true);
+    }
+    translate([20,-40]){
+        square([1.2,18],true);
+    }
+    translate([-20,-40]){
+        square([1.2,18],true);
+    }
+    translate([-20,40]){
+        square([1.2,18],true);
+    }
+}
+difference(){
+    square([75,35],true);
+    translate([0,6]){
+        square([60,1.8],true);
+    }
+    translate([0,13]){
+        square([60,3],true);
+    }
+    translate([0,-13]){
+        square([60,3],true);
+    }
+}

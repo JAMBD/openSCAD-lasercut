@@ -1,0 +1,101 @@
+use<gear.scad>
+
+%translate([0,0,1]){
+    difference(){
+        hull(){
+            circle(r=3,$fn=50);
+            translate([0,50]){
+                circle(r=3,$fn=50);
+            }
+        }
+        circle(r=2.5/2,$fn=50);        
+        translate([0,14.6]){
+            circle(r=2.5/2,$fn=50);
+        }
+    }
+}
+translate([0,14.6,-3]){
+    difference(){
+        gear(3,0.5,60,2/2,0);
+        hull(){
+            translate([6,0]){
+                circle(r=2.5/2,$fn=50);
+            }
+            translate([23,0]){
+                circle(r=2.5/2,$fn=50);
+            }
+        }
+    }
+}
+%translate([0,0,-4]){
+    difference(){
+        minkowski(){
+            polygon([[-20,-15],[20,-15],[10,20],[-10,20]]);
+            circle(r=2,$fn=10);
+        }
+        translate([0,14.6]){
+            circle(r=2.5/2,$fn=50);
+        }
+        translate([-17.5,-13]){
+            circle(r=2/2,$fn=40);
+        }
+        translate([17.5,-13]){
+            circle(r=2/2,$fn=40);
+        }
+    }
+}
+%translate([0,0,-2]){
+    difference(){
+        minkowski(){
+            polygon([[-20,-15],[20,-15],[10,20],[-10,20]]);
+            circle(r=2,$fn=10);
+        }
+        translate([0,14.6]){
+            circle(r=30,$fn=50);
+        }
+        translate([-17.5,-13]){
+            circle(r=2.5/2,$fn=40);
+        }
+        translate([17.5,-13]){
+            circle(r=2.5/2,$fn=40);
+        }
+    }
+}
+%translate([0,0,-1]){
+    difference(){
+        minkowski(){
+            polygon([[-20,-15],[20,-15],[10,20],[-10,20]]);
+            circle(r=2,$fn=10);
+        }
+        circle(r=1,$fn=100);
+        translate([0,14.6]){
+            circle(r=2.5/2,$fn=50);
+        }
+        intersection(){
+            difference(){
+                circle(r=14.6+2.5/2,$fn=60);
+                circle(r=14.6-2.5/2,$fn=60);
+            }
+            polygon([[0,0],[25,20],[-25,20]]);
+        }
+        translate([-17.5,-13]){
+            circle(r=2.5/2,$fn=40);
+        }
+        translate([17.5,-13]){
+            circle(r=2.5/2,$fn=40);
+        }
+    }
+}
+%translate([0,14.6,-2]){
+    difference(){
+        circle(r=20,$fn=100);
+        translate([14.6,0]){
+            circle(r=2/2,$fn=40);
+        }
+        circle(r=2/2,$fn=40);
+    }
+}
+%gear(3,0.5,20,2.5/2,0);
+%translate([0,14.6]){
+        gear(3,0.5,10,2/2,0);
+}

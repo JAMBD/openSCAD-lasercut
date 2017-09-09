@@ -1,0 +1,54 @@
+module board(){
+    difference(){
+        square([31,25],center=true);
+        translate([31/2-2.5,25/2]){
+            circle(r=1.2,$fn=20);
+        }
+        translate([-31/2+2.5,25/2]){
+            circle(r=1.2,$fn=20);
+        }
+        translate([31/2-2.5,-25/2]){
+            circle(r=1.2,$fn=20);
+        }
+        translate([-31/2+2.5,-25/2]){
+            circle(r=1.2,$fn=20);
+        }
+    }
+}
+module shell(){
+    difference(){
+        hull(){
+            minkowski(){
+                square([41,35],center=true);
+                circle(r=1.5,$fn=20);
+            }
+            translate([30,0]){
+                circle(r=5,$fn=20);
+            }
+        }
+        translate([23,9]){
+            circle(r=1.5,$fn=20);
+        }
+        translate([23,-9]){
+            circle(r=1.5,$fn=20);
+        }
+        translate([-18,15]){
+            circle(r=1.5,$fn=20);
+        }
+        translate([-18,-15]){
+            circle(r=1.5,$fn=20);
+        }
+    }
+}
+difference(){
+    shell();
+    circle(r=4.3/2,$fn=30);
+}
+%shell();
+%difference(){
+    shell();
+    board();
+    translate([25,0]){
+        square([20,5],center=true);
+    }
+}

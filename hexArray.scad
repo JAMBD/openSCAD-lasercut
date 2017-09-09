@@ -1,0 +1,25 @@
+difference(){
+    circle(r=15,$fn=100);
+    for($i=[0:360/15:360]){
+        rotate([0,0,$i]){
+            translate([0,12.0]){
+                circle(r=1.3,$fn=50);
+            }
+        }
+    }
+    for($i=[0:360/10:360]){
+        rotate([0,0,$i]){
+            translate([0,8.0]){
+                circle(r=1.3,$fn=50);
+            }
+        }
+    }
+    for($i=[0:360/6:360]){
+        rotate([0,0,$i]){
+            translate([0,4.0]){
+                circle(r=1.3,$fn=50);
+            }
+        }
+    }
+    circle(r=1.3,$fn=50);
+}

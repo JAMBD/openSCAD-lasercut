@@ -1,0 +1,327 @@
+use<lasercut.scad>
+$thickness=2.6;
+$offset=35;
+$tol = 0.2;
+$legLen = 80;
+$height = 20;
+$safeWid = 20;
+$width = 50;
+$axelr = 1.5;
+module locker(){
+    union(){
+        difference(){
+            circle(r=$width+$offset,$fn=100);
+            difference(){
+                circle(r=sqrt(($offset/2+1.5)*($offset/2+1.5)*2),$fn=100);
+                circle(r=sqrt(($offset/2-1.5)*($offset/2-1.5)*2),$fn=100);
+            }
+            difference(){
+                circle(r=sqrt(($width+$offset*3/4)*($width+$offset*3/4)+$offset*$offset/4)+1.5,$fn=100);
+                circle(r=sqrt(($width+$offset*3/4)*($width+$offset*3/4)+$offset*$offset/4)-1.5,$fn=100);
+            }
+            for(i=[0:4]){
+                rotate([0,0,90*i-10]){
+                    translate([$width+$offset,0,0]){
+                        square([8.0,5],center=true);
+                    }
+                }
+                rotate([0,0,90*i+10]){
+                    translate([$width+$offset,0,0]){
+                        square([8.0,5],center=true);
+                    }
+                }
+            }
+        }
+        for(i=[0:4]){
+            rotate([0,0,90*i]){
+                translate([$width+$offset*3/4,0,0]){
+                    square([6.0,$offset/2],center=true);
+                }
+            }
+            rotate([0,0,90*i-20]){
+                translate([$width+$offset*3/4,0,0]){
+                    square([6.0,$offset/2],center=true);
+                }
+            }
+            rotate([0,0,90*i+20]){
+                translate([$width+$offset*3/4,0,0]){
+                    square([6.0,$offset/2],center=true);
+                }
+            }
+        }
+        for(i=[0:3]){
+            rotate([0,0,90*i]){
+                translate([$offset/sqrt(2),0,0]){
+                    square([10.0,$offset/2],center=true);
+                }
+            }
+        }
+    }
+}
+module spacerBlock(){
+    difference(){
+        union(){
+            square([$offset/2,$offset-$thickness-$tol*2],center=true);
+            square([$offset/2+$thickness*2,$offset-$thickness*3-$tol*2],center=true);
+            
+        }
+        circle(r=1.5,$fn=50);
+    }
+}
+
+module leg(){
+    difference(){
+        hull(){
+            circle(r=$height/2,$fn=100);
+            translate([$offset,0]){
+                circle(r=$height/2,$fn=100);
+            }
+            translate([$legLen,$height/2-$height/6]){
+                circle(r=$height/6,$fn=50);
+            }
+        }
+        circle(r=$axelr,$fn=50);
+        translate([$offset/4*3,$height/2-$thickness/2]){
+            square([$offset/2,$thickness],center=true);
+        }
+        translate([$offset/4*3,-$height/2+$thickness/2]){
+            square([$offset/2,$thickness],center=true);
+        }
+        translate([$legLen-$offset/2,$height/2-$height/6]){
+            square([$offset/2,$thickness],center=true);
+        }
+    }
+}
+module arm(){
+    difference(){
+        hull(){
+            translate([$width,0]){
+                circle(r=$height/2,$fn=100);
+            }
+            translate([-$width,0]){
+                circle(r=$height/2,$fn=100);
+            }
+        }
+        translate([$offset,5]){
+            square([$thickness,$height/2],center=true);
+        }
+        translate([-$offset,5]){
+            square([$thickness,$height/2],center=true);
+        }
+        translate([0,5]){
+            square([$thickness,$height/2],center=true);
+        }
+        translate([0,$height/2-$thickness/2]){
+            square([$safeWid,$thickness],center=true);
+        }
+        translate([0,-$height/2+$thickness/2]){
+            square([$safeWid,$thickness],center=true);
+        }
+        translate([$offset,-$height/2+$thickness/2]){
+            square([$safeWid,$thickness],center=true);
+        }
+        translate([-$offset,-$height/2+$thickness/2]){
+            square([$safeWid,$thickness],center=true);
+        }
+        translate([$offset,$height/2-$thickness/2]){
+            square([$safeWid,$thickness],center=true);
+        }
+        translate([-$offset,$height/2-$thickness/2]){
+            square([$safeWid,$thickness],center=true);
+        }
+        translate([$width,0]){
+            circle(r=$axelr,$fn=100);
+        }
+        translate([-$width,0]){
+            circle(r=$axelr,$fn=100);
+        }    }
+}
+module servoBase(){
+    difference(){
+        square([$offset*2+$safeWid,$offset*2+$safeWid],center=true);
+        translate([$offset+$safeWid/2,$offset+$safeWid/2]){
+            rotate([0,0,45]){
+                square(sqrt((($safeWid/2-$thickness/2)*($safeWid/2-$thickness/2))*2),center=true);
+            }
+        }
+        translate([$offset+$safeWid/2,-$offset-$safeWid/2]){
+            rotate([0,0,45]){
+                square(sqrt((($safeWid/2-$thickness/2)*($safeWid/2-$thickness/2))*2),center=true);
+            }
+        }
+        translate([-$offset-$safeWid/2,$offset+$safeWid/2]){
+            rotate([0,0,45]){
+                square(sqrt((($safeWid/2-$thickness/2)*($safeWid/2-$thickness/2))*2),center=true);
+            }
+        }
+        translate([-$offset-$safeWid/2,-$offset-$safeWid/2]){
+            rotate([0,0,45]){
+                square(sqrt((($safeWid/2-$thickness/2)*($safeWid/2-$thickness/2))*2),center=true);
+            }
+        }
+        translate([-$offset/2,$offset/2]){
+            circle(r=1.5,$fn=100);
+        }
+        translate([-$offset/2,-$offset/2]){
+            circle(r=1.5,$fn=100);
+        }
+        translate([$offset/2,$offset/2]){
+            circle(r=1.5,$fn=100);
+        }
+        translate([$offset/2,-$offset/2]){
+            circle(r=1.5,$fn=100);
+        }
+    }
+}
+module base(){
+    %difference(){
+        square([$offset*2+$safeWid,$offset*2+$safeWid],center=true);
+        translate([$offset+$safeWid/2,$offset+$safeWid/2]){
+            rotate([0,0,45]){
+                square(sqrt((($safeWid/2-$thickness/2)*($safeWid/2-$thickness/2))*2),center=true);
+            }
+        }
+        translate([$offset+$safeWid/2,-$offset-$safeWid/2]){
+            rotate([0,0,45]){
+                square(sqrt((($safeWid/2-$thickness/2)*($safeWid/2-$thickness/2))*2),center=true);
+            }
+        }
+        translate([-$offset-$safeWid/2,$offset+$safeWid/2]){
+            rotate([0,0,45]){
+                square(sqrt((($safeWid/2-$thickness/2)*($safeWid/2-$thickness/2))*2),center=true);
+            }
+        }
+        translate([-$offset-$safeWid/2,-$offset-$safeWid/2]){
+            rotate([0,0,45]){
+                square(sqrt((($safeWid/2-$thickness/2)*($safeWid/2-$thickness/2))*2),center=true);
+            }
+        }
+        translate([0,$offset/2]){
+            rotate([0,0,0]){
+                square([$thickness,$offset-$safeWid],center=true);
+            }
+        }
+        translate([0,-$offset/2]){
+            rotate([0,0,0]){
+                square([$thickness,$offset-$safeWid],center=true);
+            }
+        }
+        translate([-$offset/2,0]){
+            rotate([0,0,90]){
+                square([$thickness,$offset-$safeWid],center=true);
+            }
+        }
+        translate([$offset/2,0]){
+            rotate([0,0,90]){
+                square([$thickness,$offset-$safeWid],center=true);
+            }
+        }
+        translate([$offset/2,$offset]){
+            rotate([0,0,90]){
+                square([$thickness,$offset-$safeWid],center=true);
+            }
+        }
+        translate([$offset/2,-$offset]){
+            rotate([0,0,90]){
+                square([$thickness,$offset-$safeWid],center=true);
+            }
+        }
+        translate([-$offset/2,$offset]){
+            rotate([0,0,90]){
+                square([$thickness,$offset-$safeWid],center=true);
+            }
+        }
+        translate([-$offset/2,-$offset]){
+            rotate([0,0,90]){
+                square([$thickness,$offset-$safeWid],center=true);
+            }
+        }
+        translate([$offset,-$offset/2]){
+            rotate([0,0,0]){
+                square([$thickness,$offset-$safeWid],center=true);
+            }
+        }
+        translate([-$offset,-$offset/2]){
+            rotate([0,0,0]){
+                square([$thickness,$offset-$safeWid],center=true);
+            }
+        }
+        translate([$offset,$offset/2]){
+            rotate([0,0,0]){
+                square([$thickness,$offset-$safeWid],center=true);
+            }
+        }
+        translate([-$offset,$offset/2]){
+            rotate([0,0,0]){
+                square([$thickness,$offset-$safeWid],center=true);
+            }
+        }
+        translate([-$offset/2,$offset/2]){
+            circle(r=1.5,$fn=100);
+        }
+        translate([-$offset/2,-$offset/2]){
+            circle(r=1.5,$fn=100);
+        }
+        translate([$offset/2,$offset/2]){
+            circle(r=1.5,$fn=100);
+        }
+        translate([$offset/2,-$offset/2]){
+            circle(r=1.5,$fn=100);
+        }
+    }
+}
+%laserCutLayer(trans=[0,0,-$height/2-$thickness*2],rot=[0,0,0],thickness=$thickness){
+    locker();
+}
+#laserCutLayer(trans=[0,0,-$height/2-$thickness*4],rot=[0,0,0],thickness=$thickness){
+    servoBase();
+}
+#laserCutLayer(trans=[0,0,-$height/2+$thickness/2],rot=[0,0,0],thickness=$thickness){
+    base();
+}
+#laserCutLayer(trans=[0,0,$height/2-$thickness/2],rot=[0,0,0],thickness=$thickness){
+    base();
+}
+
+for(i=[0:3]){
+    rotate([0,0,90*i]){
+        for(j=[-1,1]){
+            #laserCutLayer(trans=[$width+$offset*3/4,j*$offset/2,$height/2-$thickness/2],rot=[0,0,0],thickness=$thickness){
+                spacerBlock();
+            }
+            #laserCutLayer(trans=[$width+$legLen-$offset/2,j*$offset/2,$height/2-$height/6],rot=[0,0,0],thickness=$thickness){
+                spacerBlock();
+            }
+            #laserCutLayer(trans=[$width+$offset*3/4,j*$offset/2,-$height/2+$thickness/2],rot=[0,0,0],thickness=$thickness){
+                spacerBlock();
+            }
+            translate([$width+$offset*3/4,j*$offset/2,-25]){
+                cylinder(r=1.5,h=35,$fn=50);
+            }
+            %laserCutLayer(trans=[$width,j*(-$offset+$thickness+$tol),0],rot=[90,0,0],thickness=$thickness){
+                leg();
+            }
+            %laserCutLayer(trans=[$width,j*(-$thickness-$tol),0],rot=[90,0,0],thickness=$thickness){
+                leg();
+            }
+        }
+    }
+}
+laserCutLayer(trans=[0,$offset,0],rot=[90,0,0],thickness=$thickness){
+    arm();
+}
+laserCutLayer(trans=[0,-$offset,0],rot=[90,0,0],thickness=$thickness){
+    arm();
+}
+laserCutLayer(trans=[0,0,0],rot=[90,0,0],thickness=$thickness){
+    arm();
+}
+laserCutLayer(trans=[$offset,0,0],rot=[90,180,90],thickness=$thickness){
+    arm();
+}
+laserCutLayer(trans=[0,0,0],rot=[90,180,90],thickness=$thickness){
+    arm();
+}
+laserCutLayer(trans=[-$offset,0,0],rot=[90,180,90],thickness=$thickness){
+    arm();
+}

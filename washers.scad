@@ -1,0 +1,12 @@
+*difference(){
+    circle(r=5.2/2,$fn=100);
+    circle(r=1.5,$fn=100);
+}
+difference(){
+    circle(r=5.5/2,$fn=100);
+    circle(r=1.5,$fn=100);
+}
+*difference(){
+    circle(r=11.7/2,$fn=100);
+    circle(r=1.3,$fn=100);
+}
