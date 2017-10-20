@@ -5,72 +5,155 @@ $thickness=3;
 $flat = dflat;
 $num = dnum;
 $kerf = 0.1;
+
+$sep = 20.5;
+
 assembly($num,$flat){
    #laserCutLayer(
         trans=[0,0,$thickness],
         rot=[0,0,0],
         thickness=$thickness,
         flatten = $flat){
-offset(r=1.2,$fn=20){
-    offset(r=-1.2,$fn=20){
-        difference(){
-            square([60,200],true);
-            for(i=[-3:1:3]){
-                translate([26.5/2,i*24]){
-                    circle(r=8,$fn=100);
-                }
-                translate([-26.5/2,i*24]){
-                    circle(r=8,$fn=100);
-                }
-                translate([26,24/2+i*24]){
-                    circle(r=3.0/2,$fn=10);
-                }
-                translate([26,-24/2+i*24]){
-                    circle(r=3.0/2,$fn=10);
-                }
-                translate([-26,24/2+i*24]){
-                    circle(r=3.0/2,$fn=10);
-                }
-                translate([-26,-24/2+i*24]){
-                    circle(r=3.0/2,$fn=10);
+        offset(r=1.2,$fn=20){
+            offset(r=-1.2,$fn=20){
+                difference(){
+                    square([60,170],true);
+                    for(i=[-3:1:3]){
+                        translate([26.5/2,i*$sep]){
+                            circle(r=8,$fn=100);
+                        }
+                        translate([-26.5/2,i*$sep]){
+                            circle(r=8,$fn=100);
+                        }
+                        translate([26,$sep/2+i*$sep]){
+                            circle(r=3.0/2,$fn=10);
+                        }
+                        translate([26,-$sep/2+i*$sep]){
+                            circle(r=3.0/2,$fn=10);
+                        }
+                        translate([-26,$sep/2+i*$sep]){
+                            circle(r=3.0/2,$fn=10);
+                        }
+                        translate([-26,-$sep/2+i*$sep]){
+                            circle(r=3.0/2,$fn=10);
+                        }
+                    }
                 }
             }
         }
-     }
-}
-}
-   laserCutLayer(
+    }
+    
+   %laserCutLayer(
+        trans=[0,0,$thickness*4],
+        rot=[0,0,0],
+        thickness=$thickness,
+    flatten = $flat){
+        for(i=[-3:1:3]){
+            translate([0,i*$sep]){
+                square([45.5,20.5],true);
+            }
+        }
+    }
+    laserCutLayer(
         trans=[0,0,$thickness*2],
         rot=[0,0,0],
         thickness=$thickness,
         flatten = $flat){
-offset(r=1.2,$fn=20){
-    offset(r=-1.2,$fn=20){
-        difference(){
-            square([60,200],true);
-            for(i=[-3:1:3]){
-                translate([26.5/2,i*24]){
-                    circle(r=8,$fn=100);
-                }
-                translate([-26.5/2,i*24]){
-                    circle(r=8,$fn=100);
-                }
-                translate([26,24/2+i*24]){
-                    circle(r=3.0/2,$fn=10);
-                }
-                translate([26,-24/2+i*24]){
-                    circle(r=3.0/2,$fn=10);
-                }
-                translate([-26,24/2+i*24]){
-                    circle(r=3.0/2,$fn=10);
-                }
-                translate([-26,-24/2+i*24]){
-                    circle(r=3.0/2,$fn=10);
+        offset(r=1.2,$fn=20){
+            offset(r=-1.2,$fn=20){
+                difference(){
+                    square([60,170],true);
+                    for(i=[-3:1:3]){
+                        translate([26.5/2,i*$sep]){
+                            circle(r=8,$fn=100);
+                        }
+                        translate([-26.5/2,i*$sep]){
+                            circle(r=8,$fn=100);
+                        }
+                        translate([26,$sep/2+i*$sep]){
+                            circle(r=3.0/2,$fn=10);
+                        }
+                        translate([26,-$sep/2+i*$sep]){
+                            circle(r=3.0/2,$fn=10);
+                        }
+                        translate([-26,$sep/2+i*$sep]){
+                            circle(r=3.0/2,$fn=10);
+                        }
+                        translate([-26,-$sep/2+i*$sep]){
+                            circle(r=3.0/2,$fn=10);
+                        }
+                    }
+                    square([12,200],true);
                 }
             }
-            square([12,170],true);
         }
     }
-}
-}
+    laserCutLayer(
+        trans=[0,0,$thickness*6],
+        rot=[0,0,0],
+        thickness=$thickness,
+        flatten = $flat){
+        offset(r=1.2,$fn=20){
+            offset(r=-1.2,$fn=20){
+                difference(){
+                    square([60,170],true);
+                    for(i=[-3:1:3]){
+                        translate([26.5/2,i*$sep]){
+                            square([22,13],true);
+                        }
+                        translate([-26.5/2,i*$sep]){
+                            square([22,13],true);
+                        }
+                        translate([26,$sep/2+i*$sep]){
+                            circle(r=3.0/2,$fn=10);
+                        }
+                        translate([26,-$sep/2+i*$sep]){
+                            circle(r=3.0/2,$fn=10);
+                        }
+                        translate([-26,$sep/2+i*$sep]){
+                            circle(r=3.0/2,$fn=10);
+                        }
+                        translate([-26,-$sep/2+i*$sep]){
+                            circle(r=3.0/2,$fn=10);
+                        }
+                    }
+                    square([41.5,200],true);
+                }
+            }
+        }
+    }
+   laserCutLayer(
+        trans=[0,0,$thickness*3],
+        rot=[0,0,0],
+        thickness=$thickness,
+        flatten = $flat){
+        offset(r=1.2,$fn=20){
+            offset(r=-1.2,$fn=20){
+                difference(){
+                    square([60,170],true);
+                    for(i=[-3:1:3]){
+                        translate([26.5/2,i*$sep]){
+                            circle(r=8,$fn=100);
+                        }
+                        translate([-26.5/2,i*$sep]){
+                            circle(r=8,$fn=100);
+                        }
+                        translate([26,$sep/2+i*$sep]){
+                            circle(r=3.0/2,$fn=10);
+                        }
+                        translate([26,-$sep/2+i*$sep]){
+                            circle(r=3.0/2,$fn=10);
+                        }
+                        translate([-26,$sep/2+i*$sep]){
+                            circle(r=3.0/2,$fn=10);
+                        }
+                        translate([-26,-$sep/2+i*$sep]){
+                            circle(r=3.0/2,$fn=10);
+                        }
+                    }
+                    square([12,150],true);
+                }
+            }
+        }
+    }
 }
